@@ -9,12 +9,12 @@ import { MyBlogsComponent } from './components/my-blogs/my-blogs.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
-  { path: 'blog', component: BlogPageComponent, title: 'Muse Matrix | Blog' },
-  { path: 'my-blogs', component: MyBlogsComponent, title: 'Muse Matrix | My Blogs' },
-  { path: 'create-post', component: CreatePostComponent, title: 'Muse Matrix | Create Post' },
-  { path: 'read-more/:id', component: ReadMoreComponent, title: 'Muse Matrix | Read More' },
-  { path: 'login', component: LoginComponent, title: 'Muse Matrix | Login' },
-  { path: 'register', component: RegisterComponent, title: 'Muse Matrix | Register' },
+  { path: 'blogpage', component: BlogPageComponent, title: 'MuseMatrix | Blog' },
+  { path: 'myblogs', component: MyBlogsComponent, title: 'MuseMatrix | My Blogs' },
+  { path: 'createpost', component: CreatePostComponent, title: 'MuseMatrix | Create Post' },
+  { path: 'readmore/:id', component: ReadMoreComponent, title: 'MuseMatrix | Read More' },
+  { path: 'login', component: LoginComponent, title: 'MuseMatrix | Login' },
+  { path: 'register', component: RegisterComponent, title: 'MuseMatrix | Register' },
 ];
 
 export { routes };

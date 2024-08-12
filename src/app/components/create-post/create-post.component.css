@@ -1,0 +1,19 @@
+
+.create-post {
+    padding: 25px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    max-width: 600px;
+    margin: auto;
+  }
+  
+  .editor-toolbar {
+    margin-bottom: 10px;
+  }
+  
+  .editor {
+    border: 1px solid #ccc;
+    min-height: 150px;
+    padding: 150px;
+    font-size: 20px;
+  }

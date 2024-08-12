@@ -65,3 +65,21 @@ input:focus {
 .btn:hover {
   background-color: #0056b3;
 }
+
+nav {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: flex-end;
+}
+
+ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+}
+
+li {
+  margin-left: 1.5em;
+}

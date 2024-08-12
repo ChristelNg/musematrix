@@ -1,3 +1,11 @@
+main {
+  color: #afa193;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
 form {
   max-width: 400px;
   margin: 0 auto;
@@ -64,4 +72,22 @@ input:focus {
 
 .btn:hover {
   background-color: #0056b3;
+}
+
+nav {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: flex-end;
+}
+
+ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+}
+
+li {
+  align-items: center;
 }

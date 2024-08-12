@@ -1,1 +1,7 @@
-<p>read-more works!</p>
+<div *ngIf="blog">
+    <h2>{{ blog.title }}</h2>
+    <img [src]="blog.img" alt="Post Image">
+    <p>{{ blog.content }}</p>
+    <p>Posted by: {{ blog.postedBy }} | Date: {{ blog.date }}</p>
+    <p>Tags: <span *ngFor="let tag of blog.tags">{{ tag }} </span></p>
+</div>
