@@ -1,78 +1,63 @@
-import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
-
-interface Blog {
-  id: string;
-  title: string;
-  content: string;
-  img: string;
-  postedBy: string;
-  tags: string[];
-  visibility: string;
-  date: string;
-}
+import { Component, OnInit } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { DataService } from 'src/app/services/data.service';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
-  selector: 'app-blog-page',
-  standalone: true,
-  imports: [CommonModule],
+  selector: 'app-view-all',
   templateUrl: './blog-page.component.html',
-  styleUrls: ['./blog-page.component.css']
+  styleUrls: ['./blog-page.component.scss']
 })
-export class BlogPageComponent {
-  blogs: Blog[] = [
-    {
-      id: '1',
-      title: 'test1',
-      content: 'This is the content for test1.',
-      img: 'image1.jpg',
-      postedBy: 'Christel Ng',
-      tags: ['tag1', 'tag2'],
-      visibility: 'public',
-      date: 'August 2024'
-    },
-    {
-      id: '2', 
-      title: 'test2',
-      content: 'This is the content for test2.',
-      img: 'image2.jpg',
-      postedBy: 'Christel Ng',
-      tags: ['tag3', 'tag4'],
-      visibility: 'private',
-      date: 'August 2024'
-    },
-    {
-      id: '3',
-      title: 'test3',
-      content: 'This is the content for test3.',
-      img: 'image3.jpg',
-      postedBy: 'Christel Ng',
-      tags: ['tag5', 'tag6'],
-      visibility: 'public',
-      date: 'August 2024'
-    }
-  ];
+export class BlogPageComponent implements OnInit {
+  allPosts: any[] = [];
 
-  recentBlogs: Blog[] = [
-    {
-      id: '4',
-      title: 'Recent Post 1',
-      content: 'This is the content for recent post 1.',
-      img: 'recent1.jpg',
-      postedBy: 'Christel Ng',
-      tags: ['recent', 'update'],
-      visibility: 'public',
-      date: 'August 2024'
-    },
-    {
-      id: '5',
-      title: 'Recent Post 2',
-      content: 'This is the content for recent post 2.',
-      img: 'recent2.jpg',
-      postedBy: 'Christel Ng',
-      tags: ['news', 'update'],
-      visibility: 'public',
-      date: 'August 2024'
-    }
-  ];
+  isImageModalOpen = false;
+  selectedImage: string | null = null;
+
+  constructor(private dataService: DataService, private matSnackBar: MatSnackBar, public sanitizer: DomSanitizer) {}
+
+  ngOnInit() {
+    this.fetchAllPosts();
+  }
+
+  fetchAllPosts() {
+    this.dataService.getAllPosts().subscribe(
+      (res: any) => {
+        console.log('API Response:', res); 
+        try {
+          const parsedRes = JSON.parse(res); 
+          if (parsedRes && parsedRes.status && parsedRes.status.remarks === 'success' && Array.isArray(parsedRes.payload)) {
+            this.allPosts = parsedRes.payload
+              .filter((post: any) => post.visibility === 'public') 
+              .sort((a: any, b: any) => new Date(b.date).getTime() - new Date(a.date).getTime()); 
+            this.allPosts.forEach((post: any) => {
+              post.tags = JSON.parse(post.tags);
+              post.content = post.content;
+            });
+            console.log('All Posts:', this.allPosts);
+          } else {
+            console.error('Invalid response structure:', parsedRes);
+            this.matSnackBar.open("Failed to load posts!", "Close");
+          }
+        } catch (e) {
+          console.error('Error parsing response:', e);
+          this.matSnackBar.open("Failed to load posts!", "Close");
+        }
+      },
+      (err) => {
+        console.error('API Error:', err);
+        this.matSnackBar.open("Something went wrong!", "Close");
+      }
+    );
+  }
+
+  openImageModal(imageUrl: string): void {
+    this.selectedImage = imageUrl;
+    this.isImageModalOpen = true;
+  }
+
+  closeImageModal(): void {
+    this.isImageModalOpen = false;
+    this.selectedImage = null;
+  }
 }

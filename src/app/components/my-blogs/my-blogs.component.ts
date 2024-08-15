@@ -13,8 +13,6 @@ interface Blog {
 
 @Component({
   selector: 'app-my-blogs',
-  standalone: true,
-  imports: [CommonModule],
   templateUrl: './my-blogs.component.html',
   styleUrls: ['./my-blogs.component.css']
 })
