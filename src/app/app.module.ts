@@ -18,6 +18,7 @@ import { CreatePostComponent } from './components/create-post/create-post.compon
 import { MyBlogsComponent } from './components/my-blogs/my-blogs.component';
 import { ReadMoreComponent } from './components/read-more/read-more.component';
 import { LandingPageComponent } from './components/landing-page/landing-page.component';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 
 @NgModule({
   declarations: [
@@ -42,6 +43,9 @@ import { LandingPageComponent } from './components/landing-page/landing-page.com
     EditorModule,
     CommonModule
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  providers: [
+    provideAnimationsAsync()
+  ]
 })
 export class AppModule { }
